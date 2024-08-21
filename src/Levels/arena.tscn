@@ -1,0 +1,106 @@
+[gd_scene load_steps=12 format=4 uid="uid://8jqaw8vqfgnd"]
+
+[ext_resource type="Texture2D" uid="uid://cgcg6geg16ovk" path="res://assets/arena.png" id="1_f7vqr"]
+[ext_resource type="PackedScene" uid="uid://dbfgou1qygff2" path="res://src/Actors/referee.tscn" id="1_n4yxs"]
+[ext_resource type="PackedScene" uid="uid://c61oxo6sx6ncg" path="res://src/Actors/player_paddle.tscn" id="2_6a15v"]
+[ext_resource type="PackedScene" uid="uid://cak5h144vls8g" path="res://src/UI/fps_counter.tscn" id="3_k2lit"]
+[ext_resource type="PackedScene" uid="uid://b4dh5lf40gw7j" path="res://src/Actors/ball.tscn" id="4_6blwg"]
+[ext_resource type="PackedScene" uid="uid://dl7ku4c1dhddf" path="res://src/Actors/enemy_paddle.tscn" id="6_swwca"]
+[ext_resource type="PackedScene" uid="uid://c5jbq880bnfkc" path="res://src/UI/score_board.tscn" id="6_trqyn"]
+[ext_resource type="PackedScene" uid="uid://bkoutcgmat0jo" path="res://src/UI/pause_menu.tscn" id="7_pspll"]
+[ext_resource type="PackedScene" uid="uid://dvom4mec08g0m" path="res://src/Audios/audio_manager.tscn" id="8_5uoel"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0n57l"]
+texture = ExtResource("1_f7vqr")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -6, -5.92202, -5.92202, -6, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -6.01357, -8, -6.01357, -8, -8, 8, -8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -6.01357, -8, -6.01357, -8, -8, 8, -8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -6.01357, -8, -6.01357, -8, -8, 8, -8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, 6.01357, 8, 6.12493, -6.12493, -8, -6.01357, -8, -8, 8, -8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, -8, -6.12493, -8, -6.01357, 8)
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, 8, -8, 6.12493, -8, 6.01357, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -6.01357, -8, -6.12493, 5.9022, 8, 6.01357, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, 6.12493, 8, 6.01357)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, 6.12493, 8, 6.01357)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, -8, 8, -8, 6.12493, 8, 6.01357)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 6.01357, -8, 6.12493, 5.9022, -8, 6.01357, -8, 8, 8, 8)
+
+[sub_resource type="TileSet" id="TileSet_8t2ws"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0n57l")
+
+[node name="Arena" type="Node2D"]
+
+[node name="AudioManager" parent="." instance=ExtResource("8_5uoel")]
+position = Vector2(388, 253)
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AudioManager"]
+
+[node name="Referee" parent="." node_paths=PackedStringArray("kickoff_position", "home_position", "away_position") instance=ExtResource("1_n4yxs")]
+kickoff_position = NodePath("../KickoffPosition")
+home_position = NodePath("../HomePosition")
+away_position = NodePath("../AwayPosition")
+
+[node name="Arena" type="TileMapLayer" parent="."]
+texture_filter = 1
+texture_repeat = 1
+use_parent_material = true
+position = Vector2(24, 56)
+scale = Vector2(3.5, 3.5)
+tile_map_data = PackedByteArray("AAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAACAAAAAAAHAAAAAAABAAAAAAAIAAAAAAABAAAAAAAJAAAAAAABAAAAAAAKAAAAAAABAAAAAAAKAAYAAAADAAIAAAAJAAYAAAADAAIAAAAIAAYAAAADAAIAAAAHAAYAAAADAAIAAAAGAAYAAAACAAIAAAAFAAYAAAADAAIAAAAEAAYAAAADAAIAAAADAAYAAAADAAIAAAACAAYAAAADAAIAAAABAAYAAAADAAIAAAALAAYAAAADAAIAAAALAAAAAAADAAAAAAAGAAUAAAADAAEAAAAGAAEAAAADAAEAAAAGAAMAAAACAAEAAAAGAAIAAAADAAEAAAAGAAQAAAADAAEAAAAAAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAAMAAYAAAABAAIAAAANAAYAAAABAAIAAAAOAAYAAAABAAIAAAAAAAYAAAABAAIAAAD//wYAAAABAAIAAAD+/wYAAAABAAIAAAD9/wYAAAABAAIAAAD8/wYAAAABAAIAAAA=")
+tile_set = SubResource("TileSet_8t2ws")
+
+[node name="Player" parent="." instance=ExtResource("2_6a15v")]
+position = Vector2(64, 248)
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("6_swwca")]
+position = Vector2(707, 254)
+ball = NodePath("../Ball")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FpsCounter" parent="CanvasLayer" instance=ExtResource("3_k2lit")]
+offset_left = 1.0
+offset_right = 1.0
+
+[node name="ScoreBoard" parent="CanvasLayer" instance=ExtResource("6_trqyn")]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_pspll")]
+
+[node name="Ball" parent="." instance=ExtResource("4_6blwg")]
+position = Vector2(388, 253)
+
+[node name="KickoffPosition" type="Marker2D" parent="."]
+position = Vector2(388, 253)
+
+[node name="HomePosition" type="Marker2D" parent="."]
+position = Vector2(63, 253)
+
+[node name="AwayPosition" type="Marker2D" parent="."]
+position = Vector2(709, 253)
+
+[connection signal="play_audio" from="Referee" to="AudioManager" method="_on_play_audio"]
+[connection signal="restart" from="Referee" to="Player" method="_on_restart"]
+[connection signal="restart" from="Referee" to="Enemy" method="_on_restart"]
+[connection signal="restart" from="Referee" to="Ball" method="_on_restart"]
+[connection signal="scored" from="Referee" to="CanvasLayer/ScoreBoard" method="_on_scored"]
+[connection signal="game_paused" from="CanvasLayer/PauseMenu" to="Referee" method="_on_pause_menu_game_paused"]
+[connection signal="reset_game" from="CanvasLayer/PauseMenu" to="Referee" method="_on_pause_menu_reset_game"]
+[connection signal="exit_position" from="Ball" to="Referee" method="_on_ball_exit_position"]
+[connection signal="play_audio" from="Ball" to="AudioManager" method="_on_play_audio"]

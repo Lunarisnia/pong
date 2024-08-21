@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbfgou1qygff2"]
+
+[ext_resource type="Script" path="res://src/Actors/referee.gd" id="1_7c3bj"]
+
+[node name="Referee" type="Node"]
+script = ExtResource("1_7c3bj")
